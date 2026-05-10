@@ -66,12 +66,4 @@ int main() {
     for (int x : a) std::cout << x << " ";
 }
 
-/**
- * 双基准快排
- * 
- * Dual pivot quickSort
- * 
- * 
- * 
- * 
- */
+// 双基准快排 (Dual Pivot QuickSort) 详解见 notes/quicksort/quicksort.md
