@@ -31,7 +31,7 @@
 
 # git command
 
-- 代码commit时描述要简练简短
+- 代码commit时描述要简练简短，不出现动词，只要名词。
 - 不同的任务分多次commit提交
 
 # file create
