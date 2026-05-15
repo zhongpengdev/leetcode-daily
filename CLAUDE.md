@@ -33,6 +33,9 @@
 
 - 代码commit时描述要简练简短，不出现动词，只要名词。
 - 不同的任务分多次commit提交
+提交示例：
+1. 确定暂存区中内容是否可以归类，比如：IPC notes/code归一类，二叉树的notes/code归一类
+2. 分多次将不同的归类commit，描述要精简直接，例如IPC, merge sort作为标题。
 
 # file create
 
