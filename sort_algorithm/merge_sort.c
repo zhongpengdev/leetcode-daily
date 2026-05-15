@@ -4,7 +4,7 @@
 void merge(int a[], int l, int mid, int r)
 {
     int n = r - l + 1;
-    int *temp = (int *)malloc(n * sizeof(int));
+    int *temp = (int *)malloc(n * sizeof(int)); //大小为n的数组
 
     int i = l;       // 左指针起始索引
     int j = mid + 1; // 右指针起始索引
@@ -57,7 +57,7 @@ void merge_sort(int a[], int l, int r)
     merge_sort(a, l, mid);
     merge_sort(a, mid + 1, r);
 
-    merge(a, l, mid, r); //排序合并子数组
+    merge(a, l, mid, r); // 排序合并子数组
 }
 
 int main()
