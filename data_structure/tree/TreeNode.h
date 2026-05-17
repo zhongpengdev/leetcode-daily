@@ -8,7 +8,10 @@ struct TreeNode {
     TreeNode(int value) : value(value), left(nullptr), right(nullptr) {}
 };
 
-// 2. destroy()声明
+/**
+ * 2. destroy()声明
+ * 需要具体在文件中实现
+ */
 void destroyTreeNode(TreeNode *root);
 
 #endif
