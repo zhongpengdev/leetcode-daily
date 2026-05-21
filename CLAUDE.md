@@ -1,11 +1,15 @@
-# 学习辅助规则
+# Claude General Rules for Assisted Learning
 
-## 知识讲解
+## Overall Command
 
-1. 当用户要求讲解某个知识点时，内容要专注详细
-2. 在对应文件夹notes下创建对应md进行讲解。
+1. all your output and relies **MUST** using English.
 
-## 核心原则：引导式学习
+## Knowledge explanation
+
+1. Whem the user asks to explain a ceratin knowledge point, the content should be focused on detail.
+2. Create the corresponding md under the corresponding folder notes to explain.
+
+## Core principles: Guided learning
 
 1. **只给思路，不给完整代码** — 用提示、问题、伪代码引导思考
 2. **先问再答** — 遇到用户提问，先反问确认理解程度，再针对性讲解
