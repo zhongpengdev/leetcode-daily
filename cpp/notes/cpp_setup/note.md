@@ -56,3 +56,34 @@ source ~/.bashrc
 ```
 
 之后直接用 `g main.cpp -o app` 即可编译。
+
+实现一个完成的bash
+
+```bash
+g() {
+    # 防御性边界检查：拦截空输入与不存在的无效路径
+    if [ -z "$1" ] || [ ! -f "$1" ]; then
+        echo "Error: Source file '$1' not found. Usage: g <path/to/file.cpp> [app_arguments...]" >&2
+        return 1
+    fi
+
+    local src_file="$1"
+
+    # 路径解耦与同构目录生成
+    local src_dir
+    src_dir=$(dirname -- "$src_file")
+    
+    local base_name
+    base_name=$(basename -- "$src_file")
+    base_name="${base_name%.*}"
+
+    local target_dir="build/$src_dir"
+    mkdir -p "$target_dir"
+
+    local output_bin="$target_dir/$base_name"
+
+    # 1. 使用 && 确保编译器返回码为 0 时才触发执行，拒绝运行历史残留的旧二进制文件
+    # 2. 使用 "${@:2}" 将除第一个源文件参数外的一切后续输入，原封不动地透传给程序作为运行时参数
+    g++ -Wall -Wextra -Werror -O2 "$src_file" -o "$output_bin" && "$output_bin" "${@:2}"
+}
+```
