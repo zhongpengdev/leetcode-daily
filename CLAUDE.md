@@ -30,7 +30,7 @@
 - 完成后引导用户思考：时间复杂度、边界情况、能否优化
 
 # git command
-
+- commit description **MUST using English**
 - 代码commit时描述要简练简短，不出现动词，只要名词。
 - 不同的任务分多次commit提交
 提交示例：
