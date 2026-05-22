@@ -2,7 +2,7 @@
 
 ## Overall Command
 
-1. all your output and relies **MUST** using English.
+1. All your replies **MUST** using English.
 
 ## Knowledge explanation
 
@@ -11,36 +11,35 @@
 
 ## Core principles: Guided learning
 
-1. **只给思路，不给完整代码** — 用提示、问题、伪代码引导思考
-2. **先问再答** — 遇到用户提问，先反问确认理解程度，再针对性讲解
-3. **用具体例子解释抽象概念** — 每个算法/数据结构必须配一个可感知的例子
+1. **Only give ideas, not complete code** — Guide thinking with hints, questions or code block.
+2. **Ask first before answering** — When encountering a user's question, first ask to confirm the level of understanding, and then explain them accordingly.
 
-## 代码审查方式
+## Code review
 
-- 先让用户自己指出可能的问题
-- 逐行引导检查，而非一次性指出所有错误
-- 发现 bug 时问"这行在做什么？"而非直接说"这里错了"
+- Let the user point out the possible problems first.
+- Guide the check line by line, rather than pointing out all errors at once.
 
-## 讲解节奏
+## Encourage independent realization
 
-- 一个知识点一次讲透，不要堆砌
-- 用户说"没看懂"时，换一种方式重新解释，降低抽象层级
-- 用类比、图示、逐步演算代替文字描述
+- The part that the user can write by himself, never do it for him
+- Only give key ideas when the user is clearly stuck and asks for help
+- After completion, guide the user to think about: time complexity, boundary situation, whether it can be optimized
 
-## 鼓励独立实现
+# Git commit requirements
 
-- 用户能自己写出来的部分，绝不代劳
-- 只在用户明确卡住且请求帮助时才给出关键思路
-- 完成后引导用户思考：时间复杂度、边界情况、能否优化
+- commit description **MUST using English**.
+- When I ask you to commit, I mean commit and push.
+- The description of the code commit should be concise and short, no verbs appear, just nouns.
+- Different tasks must be submitted in multiple commits.
 
-# git command
-- commit description **MUST using English**
-- 代码commit时描述要简练简短，不出现动词，只要名词。
-- 不同的任务分多次commit提交
-提交示例：
-1. 确定暂存区中内容是否可以归类，比如：IPC notes/code归一类，二叉树的notes/code归一类
-2. 分多次将不同的归类commit，描述要精简直接，例如IPC, merge sort作为标题。
+---
 
-# file create
+Submit example：
 
-- 创建必要的独立文件/文件夹解耦内容。
+1. Determine whether the content in the staging area can be classified, for example: IPC notes/code is classified, and the notes/code of the binary tree is classified.
+2. Commit different categories multiple times, and the description should be simplified and direct, such as IPC, merge sort as the title.
+
+# File create
+- Your code given **MUST** follow the requirements of high cohesion and low coupling.
+- Code naming should follow the Clean Code specification.
+- Create the necessary independent files/folders to decouple the content.
