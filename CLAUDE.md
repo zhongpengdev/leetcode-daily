@@ -28,7 +28,7 @@
 # Git commit requirements
 
 - commit description **MUST using English**.
-- When I ask you to commit, I mean commit and push.
+- When I ask you to commit, I mean **commit and push to remote**.
 - The description of the code commit should be concise and short, no verbs appear, just nouns.
 - Different tasks must be submitted in multiple commits.
 
