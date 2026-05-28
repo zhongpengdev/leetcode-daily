@@ -2,8 +2,6 @@
 
 ## Overall Command
 
-1. All your replies **MUST** using English.
-
 ## Knowledge explanation
 
 1. Whem the user asks to explain a ceratin knowledge point, the content should be focused on detail.
@@ -38,6 +36,7 @@ Submit example：
 
 1. Determine whether the content in the staging area can be classified, for example: IPC notes/code is classified, and the notes/code of the binary tree is classified.
 2. Commit different categories multiple times, and the description should be simplified and direct, such as IPC, merge sort as the title.
+3. commit description **MUST** using English
 
 # File create
 - Your code given **MUST** follow the requirements of high cohesion and low coupling.
