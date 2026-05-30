@@ -17,8 +17,32 @@ while(scanf("%d, %d", &a, &b) != EOF) {
 ```cpp
 while (cin >> a >> b); // Internally determine EOF by C++ itself
 ```
+# snippet
 
-# Classify
+`Strl+Shift+P` -> snippet and open c.json or cpp.json
+
+add temp:
+```json
+"OJ Template": {
+      "prefix": "oj",
+      "body": [
+        "#include <stdio.h>",
+        "#include <stdlib.h>",
+        "#include <string.h>",
+        "",
+        "int main()",
+        "{",
+        "    ${0}",
+        "",
+        "    return 0;",
+        "}"
+      ],
+      "description": "HDU OJ C template"
+    }
+```
+in the c file and input `oj` and tab to make it work.
+
+# basic resolving order by ai
 
 1000 - 1399 号题。 这是最经典的黄金题区。这里没有按技术点分类，而是混杂在一起。但其中包含大量考研/大厂最爱考的经典数据结构基础题。
 
@@ -45,3 +69,20 @@ HDU 3791 (二叉搜索树)：输入两组序列，判断它们构造出的二叉
 HDU 1166 (敌兵布阵)、HDU 1754 (I Hate It)：杭电镇站之宝，线段树（Segment Tree）入门。虽然 11408 不直接考线段树代码，但这是互联网大厂压榨区间查询性能的高级数据结构事实标准。
 
 HDU 1040 (As Easy As A+B)：基础排序。拿它去练熟手写快排（Quick Sort）和堆排（Heap Sort）。
+
+基础题推荐刷题顺序
+第一阶段（2天，10题）： 输入输出练习
+
+1000、1089、1090、1091、1092、1093、1094、1095、1096、1001
+
+第二阶段（2-4天，12题）： 简单运算
+
+2000、2001、2002、2003、2004、2005、2006、2007、2008、2009、2010、2011、2039
+
+第三阶段（4-6天，24题）： 一维数组、分支结构
+
+2012-2030、2032、2040、2042、2054、2055
+
+第四阶段： 简单字符串和找规律题
+
+1004、1005、1008、1013、1019、1020、1021、1048、1062、1108
