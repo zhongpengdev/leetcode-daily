@@ -42,6 +42,21 @@ add temp:
 ```
 in the c file and input `oj` and tab to make it work.
 
+
+# basic grammar in c
+
+```c
+double x1, x2;
+scanf("%lf %lf", &x1, &x2);
+```
+
+standard bool lib in c:
+```c
+#include<stdbool.h>
+```
+
+
+
 # basic resolving order by ai
 
 1000 - 1399 号题。 这是最经典的黄金题区。这里没有按技术点分类，而是混杂在一起。但其中包含大量考研/大厂最爱考的经典数据结构基础题。
