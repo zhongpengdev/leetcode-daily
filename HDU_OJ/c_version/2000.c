@@ -32,7 +32,7 @@ char* orderString(char string[]) {
 int main()
 {
     // c中没有char[] 使用大数组
-    char usersString[100];
+    char usersString[3];
     
     while (scanf("%s", usersString) != EOF)
     {
