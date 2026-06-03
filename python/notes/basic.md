@@ -12,3 +12,16 @@
 from dotenv import load_dotenv
 
 load_dotenv()
+
+# requirements.txt requirements-dev.txt
+
+`requirements-dev.txt`用来放测试包的，只能开发时运行不能放在生产中构建，自动导入requirements.txt的包。
+
+```
+-r requirements.txt
+pytest>=7.4
+pytest-asyncio>=0.21
+pytest-cov>=4.0
+httpx>=0.24
+aioresponses>=0.7
+```
