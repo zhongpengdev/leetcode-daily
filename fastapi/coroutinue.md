@@ -275,9 +275,9 @@ async def main():
     result = await coro
 ```
 
-### 4.2 Task（任务）
+### 4.2 Task对象
 
-Task 用来**并发调度**协程：多个 Task 可以同时在事件循环中运行。
+Task 用来并发调度协程。
 
 ```python
 async def say_after(delay, what):
@@ -322,15 +322,19 @@ async def main():
     result = await future   # 等待 future 被 set_result
     print(result)           # "done!"
 ```
+```python
+import asyncio
 
-**三者关系**：
+async def main():
+    fut = asyncio.Future()
 
-```
-Future (底层容器，存结果/异常)
-  ↑ 继承
-Task  (Future + 驱动协程执行)
-  ↑ 包装
-Coroutine (用户写的 async def 函数)
+    async def setter():
+        await asyncio.sleep(1)
+        fut.set_result("手动填写结果")
+
+    asyncio.create_task(setter())
+    result1 = await fut
+    print(result1)
 ```
 
 ---
@@ -346,57 +350,6 @@ Coroutine (用户写的 async def 函数)
 3. 有哪些协程可以被唤醒了？
 
 然后选择其中一个去执行。
-
-### 5.2 极简事件循环实现
-
-```python
-import selectors
-import socket
-import time
-from collections import deque
-
-class SimpleEventLoop:
-    """一个最小的事件循环实现，帮助你理解原理"""
-
-    def __init__(self):
-        self.ready = deque()         # 就绪的回调队列
-        self.selector = selectors.DefaultSelector()  # I/O 多路复用
-        self.current_time = time.monotonic
-
-    def call_soon(self, callback, *args):
-        """将一个回调放入就绪队列"""
-        self.ready.append((callback, args))
-
-    def call_later(self, delay, callback, *args):
-        """定时回调：delay 秒后执行"""
-        deadline = self.current_time() + delay
-        self.selector.register(
-            _TimerFd(deadline),
-            selectors.EVENT_READ,
-            (callback, args)
-        )
-
-    def add_reader(self, fd, callback, *args):
-        """注册 I/O 可读事件"""
-        self.selector.register(fd, selectors.EVENT_READ, (callback, args))
-
-    def run_forever(self):
-        """事件循环主循环"""
-        while True:
-            # 步骤 1: 执行所有就绪的回调
-            while self.ready:
-                callback, args = self.ready.popleft()
-                callback(*args)
-
-            # 步骤 2: 等待 I/O 事件（有就绪回调则立即返回）
-            timeout = 0 if self.ready else None
-            events = self.selector.select(timeout=timeout)
-
-            # 步骤 3: 将触发的 I/O 回调放入就绪队列
-            for key, mask in events:
-                callback, args = key.data
-                self.ready.append((callback, args))
-```
 
 ### 5.3 事件循环的执行模型
 
@@ -451,7 +404,7 @@ async def main():
 
 ---
 
-## 6. Task：并发执行的单元
+## 6. Task：create_task(async_func())时已经加入事件循环
 
 ### 6.1 `asyncio.create_task()`
 
@@ -475,30 +428,44 @@ async def main():
     r2 = await t2
     r3 = await t3
 ```
-
-**关键点**：`create_task()` 调用后，协程就被提交到事件循环中排队了，不需要 `await` 它就会开始运行。`await task` 只是等待结果。
+`create_task()` 调用后，协程就被提交到事件循环中排队了，不需要 `await` 它就会开始运行。`await task` 只是等待结果。
 
 ### 6.2 `asyncio.gather()` — 批量并发
 
+gather 可以直接传入协程，内部自动创建Task对象
+
 ```python
+import asyncio
+
+async def fetch(url: str):
+    print("Starting to fetch url's content")
+    
+    # simulate web fetch
+    await asyncio.sleep(1)
+
+    print("Web fetch finished")
+
 async def main():
-    urls = ["a", "b", "c"]
+    fetch_task1 = asyncio.create_task(fetch("a"))
+    fetch_task2 = asyncio.create_task(fetch("b"))
 
-    # gather 帮你创建任务并等待所有完成
+    # method1: await task manually
+    await fetch_task1
+    await fetch_task2
+
+    # method2 using asyncio.gather() and enter task objects
+    result = await asyncio.gather(fetch_task1, fetch_task2)
+
+    # method3: you can also enter corountinue objects as parmeters 
     results = await asyncio.gather(
-        fetch("a"),
-        fetch("b"),
-        fetch("c"),
+        fetch("a"), # <- turn coroutinue into Task automatically
+        fetch("b")
     )
-    print(results)  # ["result-a", "result-b", "result-c"]
 
-    # 也可以传列表
-    tasks = [fetch(url) for url in urls]
-    results = await asyncio.gather(*tasks)
-
-    # return_exceptions=True：单个任务报错不会影响其他
-    results = await asyncio.gather(*tasks, return_exceptions=True)
+    print(result)
+    print(results)
 ```
+
 
 ### 6.3 `asyncio.wait()` — 更灵活的控制
 
@@ -537,19 +504,6 @@ async def main():
     for coro in asyncio.as_completed(tasks):
         result = await coro   # 等待最早完成的那个
         print(f"最早完成: {result}")
-```
-
-### 6.5 Task 的类型关系
-
-```python
-@asyncio.coroutine          # 旧式写法（不推荐）
-def old_style():
-    yield from asyncio.sleep(1)
-
-async def new_style():      # 新式写法
-    await asyncio.sleep(1)
-
-# 两者都返回协程对象，行为一致
 ```
 
 ---
@@ -605,44 +559,6 @@ async def main2():
 
 ### 7.2 异步迭代器（`async for`）
 
-```python
-class AsyncRange:
-    """异步迭代器"""
-
-    def __init__(self, start, end):
-        self.start = start
-        self.end = end
-        self.current = start
-
-    def __aiter__(self):
-        """返回异步迭代器自身"""
-        return self
-
-    async def __anext__(self):
-        """异步获取下一个元素"""
-        if self.current >= self.end:
-            raise StopAsyncIteration
-        await asyncio.sleep(0.1)  # 模拟异步操作
-        val = self.current
-        self.current += 1
-        return val
-
-async def main():
-    results = []
-    async for num in AsyncRange(0, 5):
-        results.append(num)
-    print(results)  # [0, 1, 2, 3, 4]
-
-# 异步生成器（更简洁）
-async def async_range(start, end):
-    for i in range(start, end):
-        await asyncio.sleep(0.1)
-        yield i
-
-async def main2():
-    async for num in async_range(0, 5):
-        print(num)
-```
 
 ### 7.3 列表推导中的 `async for`
 

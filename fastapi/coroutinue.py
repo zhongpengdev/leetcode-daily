@@ -1,4 +1,4 @@
-from asyncio import Future
+import asyncio
 
 # async def coroutinue_func():
 #     print("func")
@@ -24,3 +24,20 @@ f.set_result(42)
 
 print(f.done())
 print(f.result())
+
+
+class AsyncConnrction:
+    async def __aenter__(self):
+        print("async manneager opened")
+        await asyncio.sleep(1)
+        return self
+
+    async def __aexit__(self, exc_type, exc, tb):
+        print("async mannager closed")
+        await asyncio.sleep(1)
+        return False
+    
+    async def query(self, sql):
+        await asyncio.sleep(1)
+        return f"result of {sql}"
+    
