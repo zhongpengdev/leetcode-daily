@@ -22,3 +22,4 @@
 
     int* array = (int*) malloc(n * sizeof(int));
     ```
+4. 2021 基础贪心，整除余额
