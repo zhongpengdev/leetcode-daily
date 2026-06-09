@@ -1,3 +1,4 @@
-# 博观而约取，厚积而薄发
+# What I have done and learn.
 
-![embrace_disconfort](./assets/embrace_discomfort.png)
+I'm zhongpeng LI. Here is a note list of what I have learn.
+
