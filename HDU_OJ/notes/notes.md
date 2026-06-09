@@ -54,7 +54,4 @@
    | 读带空格整行 | `fgets(str, 100, stdin)` | 逐字符 `scanf("%c", &ch)` 读到 `\n` |
    | 去换行符 | `str[strcspn(str, "\n")] = '\0'` | 读的时候遇到 `\n` 就 `break`，直接 `str[i]='\0'` |
 
-   验证过程：C 代码 403 → 选 G++ 仍 403 → 去掉 `getchar` 还 403
-   → 去掉 `fgets` + `strcspn` + `string.h` → AC。证实是函数名黑名单。
-
 7. 2028 求最小公倍数/求数组的最小公倍数
