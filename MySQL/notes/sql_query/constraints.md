@@ -167,23 +167,82 @@ CREATE TABLE employees (
 
 ---
 
-## 建表时与建表后
+## 建表后
+
+建表后想改表的内容的时候使用 ALTER TABLE
+
+添加列
 
 ```sql
--- 建表后加约束
-ALTER TABLE users ADD PRIMARY KEY (id);
-ALTER TABLE users ADD UNIQUE (email);
-ALTER TABLE users ADD FOREIGN KEY (role_id) REFERENCES roles(id);
-ALTER TABLE users MODIFY name VARCHAR(50) NOT NULL;
-ALTER TABLE users ALTER COLUMN status SET DEFAULT 0;
 
--- 删约束
-ALTER TABLE users DROP PRIMARY KEY;
-ALTER TABLE users DROP INDEX email;          -- UNIQUE 按索引删
-ALTER TABLE users DROP FOREIGN KEY fk_name;  -- 删外键需要约束名
-ALTER TABLE users MODIFY name VARCHAR(50) NULL;
-ALTER TABLE users ALTER COLUMN status DROP DEFAULT;
+
+-- 加在最后
+ALTER TABLE users ADD COLUMN age INT;
+
+-- 加在指定位置（某列之后）
+ALTER TABLE users ADD COLUMN phone VARCHAR(20) AFTER name;
+
+-- 加在最前面
+ALTER TABLE users ADD COLUMN row_id INT FIRST;
 ```
+
+删除列
+
+```sql
+ALTER TABLE users DROP COLUMN age;
+```
+
+修改列
+
+```sql
+-- 改类型
+ALTER TABLE users MODIFY name VARCHAR(100);
+
+-- 加 NOT NULL
+ALTER TABLE users MODIFY name VARCHAR(50) NOT NULL;
+
+-- 加默认值
+ALTER TABLE users MODIFY status INT DEFAULT 0;
+
+-- 组合拳
+ALTER TABLE users MODIFY name VARCHAR(50) NOT NULL DEFAULT '匿名';
+```
+
+改列明
+
+```sql
+ALTER TABLE users CHANGE old_name new_name VARCHAR(50);
+```
+
+修改列顺序
+
+```sql
+ALTER TABLE users MODIFY phone VARCHAR(20) AFTER email;
+````
+
+主键约束
+
+```sql
+-- 加主键
+ALTER TABLE users ADD PRIMARY KEY (id);
+
+-- 删主键
+ALTER TABLE users DROP PRIMARY KEY;
+```
+
+唯一约束
+
+```sql
+-- 加唯一约束
+ALTER TABLE users ADD UNIQUE (email);
+
+-- 加联合唯一
+ALTER TABLE users ADD UNIQUE (col1, col2);
+
+-- 删除唯一约束（按索引名删）
+ALTER TABLE users DROP INDEX email;
+```
+
 
 ---
 
