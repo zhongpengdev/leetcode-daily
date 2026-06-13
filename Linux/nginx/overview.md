@@ -43,3 +43,20 @@ sudo nginx -t
 sudo systemctl reload nginx
 ```
 
+查看哪些站点被启用了
+
+```bash
+ls /etc/nginx/sites-enabled/
+```
+# 日志部分
+
+nginx报错日志
+
+```bash
+sudo tail -f /var/log/nginx/error.log
+```
+
+那些人访问了站点
+```bash
+sudo tail -f /var/log/nginx/access.log
+```
