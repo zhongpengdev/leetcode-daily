@@ -1,10 +1,8 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
 int main()
 {
-    
+
     char name[50];
     double num, price, total = 0;
 
@@ -15,6 +13,6 @@ int main()
 
     // %。1lf自带四舍五入。
     printf("%.1lf\n", total);
-    
+
     return 0;
 }
