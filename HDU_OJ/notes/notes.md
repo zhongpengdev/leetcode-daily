@@ -48,11 +48,26 @@
    应对原则：只用 `stdio.h` + `scanf` + `printf`，不用 `string.h`。
 
    常见场景替换：
-   | 需求 | 被拦写法 | 安全写法 |
-   |------|---------|---------|
-   | 吃掉换行符 | `getchar()` | `scanf("%*c")` |
-   | 读带空格整行 | `fgets(str, 100, stdin)` | 逐字符 `scanf("%c", &ch)` 读到 `\n` |
-   | 去换行符 | `str[strcspn(str, "\n")] = '\0'` | 读的时候遇到 `\n` 就 `break`，直接 `str[i]='\0'` |
+   | 需求         | 被拦写法                         | 安全写法                                         |
+   | ------------ | -------------------------------- | ------------------------------------------------ |
+   | 吃掉换行符   | `getchar()`                      | `scanf("%*c")`                                   |
+   | 读带空格整行 | `fgets(str, 100, stdin)`         | 逐字符 `scanf("%c", &ch)` 读到 `\n`              |
+   | 去换行符     | `str[strcspn(str, "\n")] = '\0'` | 读的时候遇到 `\n` 就 `break`，直接 `str[i]='\0'` |
 
 7. 2028 求最小公倍数/求数组的最小公倍数
 8. 2031 十进制转任意进制的方法
+9. 1019求数组的最小公倍数
+
+```c
+    // 任意两个数都要找到最小公倍数
+int arrays_lcm(int array[], int count){
+    int result = array[0];
+
+    for (int i = 1; i < count; i++)
+    {
+        result = lcm(result, array[i]);
+    }
+
+    return result;
+}
+```
