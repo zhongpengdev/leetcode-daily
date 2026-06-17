@@ -1,7 +1,6 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
+// hahah
 int main()
 {
     int n;
@@ -16,9 +15,10 @@ int main()
         int count = 1;
         char last_char = str[0];
 
-        for (int i = 1; str[i] != '\0'; i++)
+        // 要让'\0'也进入循环，这样才能识别打印最后一个字符
+        for(int i = 1; ; i++)
         {
-            // 如果当前值和前一个char不相等
+            // 如果当前值和前一个char不相等,且包括了最后 '\0'的情况
             if (str[i] != last_char)
             {
                 if (count == 1)
@@ -33,21 +33,18 @@ int main()
                 }
                 // 更新lastchar
                 last_char = str[i];
+
+                if (str[i] == '\0')
+                {
+                    break;
+                }
+                
             }
             else
             {
                 // 如果等于最后一个char
                 count++;
             }
-        }
-
-        if (count == 1)
-        {
-            printf("%c", last_char);
-        }
-        else
-        {
-            printf("%d%c", count, last_char);
         }
 
         printf("\n");
