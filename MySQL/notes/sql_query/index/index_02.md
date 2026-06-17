@@ -1,5 +1,81 @@
 # 索引
 
+## 常见索引语法
+
+### 建表时创建
+
+```sql
+-- 主键索引
+CREATE TABLE users (
+    id INT PRIMARY KEY,               -- 主键索引
+    name VARCHAR(50),
+    email VARCHAR(100),
+    age INT,
+    INDEX idx_name (name),            -- 普通索引
+    UNIQUE idx_email (email),         -- 唯一索引
+    INDEX idx_name_age (name, age)    -- 联合索引
+);
+```
+
+### CREATE INDEX（已存在表上建索引）
+
+```sql
+-- 普通索引
+CREATE INDEX idx_name ON users (name);
+
+-- 唯一索引
+CREATE UNIQUE INDEX idx_email ON users (email);
+
+-- 联合索引
+CREATE INDEX idx_name_age ON users (name, age);
+
+-- 前缀索引（只索引前N个字符，适合长字符串）
+CREATE INDEX idx_content ON articles (content(50));
+
+-- 全文索引
+CREATE FULLTEXT INDEX idx_content ON articles (content);
+```
+
+### ALTER TABLE 建索引
+
+```sql
+-- 添加主键
+ALTER TABLE users ADD PRIMARY KEY (id);
+
+-- 添加普通索引
+ALTER TABLE users ADD INDEX idx_name (name);
+
+-- 添加唯一索引
+ALTER TABLE users ADD UNIQUE idx_email (email);
+```
+
+### 删除索引
+
+```sql
+-- 删除普通/唯一/全文索引
+DROP INDEX idx_name ON users;
+ALTER TABLE users DROP INDEX idx_name;
+
+-- 删除主键（注意：自增列不能直接删主键）
+ALTER TABLE users DROP PRIMARY KEY;
+```
+
+### 查看索引
+
+```sql
+-- 查看某张表的所有索引
+SHOW INDEX FROM users;
+
+-- 从建表语句看索引
+SHOW CREATE TABLE users;
+
+-- 查询数据库有哪些索引
+SELECT * FROM information_schema.STATISTICS
+WHERE TABLE_NAME = 'users';
+```
+
+---
+
 ```sql
 CREATE INDEX idx_name ON users (name); 
 ```
